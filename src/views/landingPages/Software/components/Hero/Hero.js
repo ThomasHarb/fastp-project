@@ -12,6 +12,7 @@ import jsonData from "../../../../../data/fastp.json";
 import { BarChart } from "@mui/x-charts/BarChart";
 import CharContent from "../ChartContent/CharContent";
 import Heatmap from "../Heatmap/Heatmap";
+import Grid from "@mui/material/Grid";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -84,23 +85,7 @@ function Hero() {
     indexQuality++;
   }
   return (
-    <Box
-      sx={{
-        position: "relative",
-        "&::after": {
-          position: "absolute",
-          content: '""',
-          width: "30%",
-          zIndex: 1,
-          top: 0,
-          right: 0,
-          height: "100%",
-          backgroundSize: "18px 18px",
-          backgroundImage: `radial-gradient(${theme.palette.primary.dark} 20%, transparent 20%)`,
-          opacity: 0.2,
-        },
-      }}
-    >
+    <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
       <Box position="relative" zIndex={2}>
         <Box marginBottom={2}>
           <Typography
@@ -133,21 +118,23 @@ function Hero() {
             width: "100%",
           }}
         >
-          <AppBar position="flex" style={{ position: "flex" }}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              centered
-              color="primary"
-            >
-              <Tab label="Overview" {...a11yProps(0)} />
-              <Tab label="Adapters" {...a11yProps(1)} />
-              <Tab label="Duplication" {...a11yProps(2)} />
-              <Tab label="Insert size estimation" {...a11yProps(3)} />
-              <Tab label="Before filtering" {...a11yProps(4)} />
-              <Tab label="After filtering" {...a11yProps(5)} />
-            </Tabs>
-          </AppBar>
+          <Grid item xs={2} sm={2} md={2}>
+            <AppBar position="flex" style={{ position: "flex" }}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                centered
+                color="primary"
+              >
+                <Tab label="Overview" {...a11yProps(0)} />
+                <Tab label="Adapters" {...a11yProps(1)} />
+                <Tab label="Duplication" {...a11yProps(2)} />
+                <Tab label="Insert size distribution" {...a11yProps(3)} />
+                <Tab label="Before filtering" {...a11yProps(4)} />
+                <Tab label="After filtering" {...a11yProps(5)} />
+              </Tabs>
+            </AppBar>
+          </Grid>
           <CustomTabPanel value={value} index={0}>
             <Table
               title="Before Filtering"
@@ -190,19 +177,7 @@ function Hero() {
           <CustomTabPanel value={value} index={2}>
             <Box
               sx={{
-                position: "relative",
-                "&::after": {
-                  position: "absolute",
-                  content: '""',
-                  width: "30%",
-                  zIndex: 1,
-                  top: 0,
-                  right: 0,
-                  height: "100%",
-                  backgroundSize: "18px 18px",
-                  backgroundImage: `radial-gradient(${theme.palette.primary.dark} 20%, transparent 20%)`,
-                  opacity: 0.2,
-                },
+                width: "100%",
               }}
             >
               <Box sx={{ p: 2, textAlign: "center" }}>
@@ -221,19 +196,7 @@ function Hero() {
           <CustomTabPanel value={value} index={3}>
             <Box
               sx={{
-                position: "relative",
-                "&::after": {
-                  position: "absolute",
-                  content: '""',
-                  width: "30%",
-                  zIndex: 1,
-                  top: 0,
-                  right: 0,
-                  height: "100%",
-                  backgroundSize: "18px 18px",
-                  backgroundImage: `radial-gradient(${theme.palette.primary.dark} 20%, transparent 20%)`,
-                  opacity: 0.2,
-                },
+                width: "100%",
               }}
             >
               <Box sx={{ p: 2, textAlign: "center" }}>
@@ -252,19 +215,7 @@ function Hero() {
           <CustomTabPanel value={value} index={4}>
             <Box
               sx={{
-                position: "relative",
-                "&::after": {
-                  position: "absolute",
-                  content: '""',
-                  width: "30%",
-                  zIndex: 1,
-                  top: 0,
-                  right: 0,
-                  height: "100%",
-                  backgroundSize: "18px 18px",
-                  backgroundImage: `radial-gradient(${theme.palette.primary.dark} 20%, transparent 20%)`,
-                  opacity: 0.2,
-                },
+                width: "100%",
               }}
             >
               <Box sx={{ p: 2, textAlign: "center" }}>
@@ -354,19 +305,7 @@ function Hero() {
           <CustomTabPanel value={value} index={5}>
             <Box
               sx={{
-                position: "relative",
-                "&::after": {
-                  position: "absolute",
-                  content: '""',
-                  width: "30%",
-                  zIndex: 1,
-                  top: 0,
-                  right: 0,
-                  height: "100%",
-                  backgroundSize: "18px 18px",
-                  backgroundImage: `radial-gradient(${theme.palette.primary.dark} 20%, transparent 20%)`,
-                  opacity: 0.2,
-                },
+                width: "100%",
               }}
             >
               <Box sx={{ p: 2, textAlign: "center" }}>
@@ -453,6 +392,7 @@ function Hero() {
               </Box>
             </Box>
           </CustomTabPanel>
+          {/* </Grid> */}
         </Box>
       </Box>
     </Box>
