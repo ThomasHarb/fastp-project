@@ -13,6 +13,7 @@ import { BarChart } from "@mui/x-charts/BarChart";
 import CharContent from "../ChartContent/CharContent";
 import Heatmap from "../Heatmap/Heatmap";
 import Grid from "@mui/material/Grid";
+import { useMediaQuery } from "@mui/material";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -48,7 +49,7 @@ function a11yProps(index) {
 }
 
 function Hero() {
-  const theme = useTheme();
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -113,18 +114,15 @@ function Hero() {
             or use our demo dataset below.
           </Typography>
         </Box>
-        <Box
-          sx={{
-            width: "100%",
-          }}
-        >
-          <Grid item xs={2} sm={2} md={2}>
-            <AppBar position="flex" style={{ position: "flex" }}>
+        <Grid container direction="row" spacing={2}>
+          <Grid item xs={12} sm={12} md={16} lg={16}>
+            <AppBar position="flex" style={{ position: "flex" }} centered>
               <Tabs
                 value={value}
                 onChange={handleChange}
                 centered
                 color="primary"
+                variant="fullWidth"
               >
                 <Tab label="Overview" {...a11yProps(0)} />
                 <Tab label="Adapters" {...a11yProps(1)} />
@@ -135,265 +133,540 @@ function Hero() {
               </Tabs>
             </AppBar>
           </Grid>
-          <CustomTabPanel value={value} index={0}>
-            <Table
-              title="Before Filtering"
-              section="before_filtering"
-              summaryData={summaryData.before_filtering}
-              headersKey=""
-              headersValue=""
-            />
-            <Table
-              title="After Filtering"
-              section="after_filtering"
-              summaryData={summaryData.after_filtering}
-              headersKey=""
-              headersValue=""
-            />
-            <Table
-              title="Filtering Results"
-              section="after_filtering"
-              summaryData={jsonData.filtering_result}
-              headersKey=""
-              headersValue=""
-            />
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={1}>
-            <Table
-              title="Adapter or bad ligation of read1"
-              section="adapter_read1"
-              summaryData={adapterData.read1_adapter_counts}
-              headersKey="Sequence"
-              headersValue="Occurrences"
-            />
-            <Table
-              title="Adapter or bad ligation of read2"
-              section="adapter_read2"
-              summaryData={adapterData.read2_adapter_counts}
-              headersKey="Sequence"
-              headersValue="Occurrences"
-            />
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={2}>
-            <Box
-              sx={{
-                width: "100%",
-              }}
-            >
-              <Box sx={{ p: 2, textAlign: "center" }}>
-                <h2>Duplication</h2>
-              </Box>
-              <BarChart
-                series={[{ data: duplicationDataHistogram }]}
-                height={390}
-                xAxis={[
-                  { data: duplicationDataHistogramXaxis, scaleType: "band" },
-                ]}
-                /* margin={{ top: 10, bottom: 30, left: 40, right: 10 }} */
-              />
-            </Box>
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={3}>
-            <Box
-              sx={{
-                width: "100%",
-              }}
-            >
-              <Box sx={{ p: 2, textAlign: "center" }}>
-                <h2>Insert size distribution</h2>
-              </Box>
-              <BarChart
-                series={[{ data: inserSizeDataHistogram }]}
-                height={390}
-                xAxis={[
-                  { data: inserSizeDataHistogramXaxis, scaleType: "band" },
-                ]}
-                /* margin={{ top: 10, bottom: 30, left: 40, right: 10 }} */
-              />
-            </Box>
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={4}>
-            <Box
-              sx={{
-                width: "100%",
-              }}
-            >
-              <Box sx={{ p: 2, textAlign: "center" }}>
-                <h2>Before filtering</h2>
-              </Box>
-              {/*               <LineChart
-                xAxis={[{ data: LineChartXaxis }]}
-                series={[
-                  {
-                    data: QualityreadUnBeforeFilteringLineChart,
-                  },
-                ]}
-                width={500}
-                height={300}
-                headersKey="Quality"
-                headersValue="Position"
-              /> */}
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  justifyContent: "space-around",
-                }}
-              >
-                <h2>Read 1</h2>
-                <h2>Read 2</h2>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  justifyContent: "space-around",
-                }}
-              >
-                <h4>Quality Curves</h4>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  justifyContent: "space-around",
-                }}
-              >
-                <Chart typeFiltering="ReadUnBeforeFiltering" />
-                <Chart typeFiltering="ReadTwoBeforeFiltering" />
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  justifyContent: "space-around",
-                }}
-              >
-                <h4>Base Contents</h4>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  justifyContent: "space-around",
-                }}
-              >
-                <CharContent typeFiltering="ReadUnBeforeFiltering" />
-                <CharContent typeFiltering="ReadTwoBeforeFiltering" />
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  justifyContent: "space-around",
-                }}
-              >
-                <h4>Kmer Counting</h4>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  justifyContent: "space-around",
-                }}
-              >
-                <Heatmap />
-                <Heatmap />
-              </Box>
-            </Box>
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={5}>
-            <Box
-              sx={{
-                width: "100%",
-              }}
-            >
-              <Box sx={{ p: 2, textAlign: "center" }}>
-                <h2>After filtering</h2>
-              </Box>
-              {/*               <LineChart
-                xAxis={[{ data: LineChartXaxis }]}
-                series={[
-                  {
-                    data: QualityreadUnBeforeFilteringLineChart,
-                  },
-                ]}
-                width={500}
-                height={300}
-                headersKey="Quality"
-                headersValue="Position"
-              /> */}
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  justifyContent: "space-around",
-                }}
-              >
-                <h2>Read 1</h2>
-                <h2>Read 2</h2>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  justifyContent: "space-around",
-                }}
-              >
-                <h4>Quality Curves</h4>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  justifyContent: "space-around",
-                }}
-              >
-                <Chart typeFiltering="ReadUnAfterFiltering" />
-                <Chart typeFiltering="ReadTwoAfterFiltering" />
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  justifyContent: "space-around",
-                }}
-              >
-                <h4>Base Contents</h4>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  justifyContent: "space-around",
-                }}
-              >
-                <CharContent typeFiltering="ReadUnAfterFiltering" />
-                <CharContent typeFiltering="ReadTwoAfterFiltering" />
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  justifyContent: "space-around",
-                }}
-              >
-                <h4>Kmer Counting</h4>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  justifyContent: "space-around",
-                }}
-              >
-                <Heatmap />
-                <Heatmap />
-              </Box>
-            </Box>
-          </CustomTabPanel>
-          {/* </Grid> */}
-        </Box>
+          <Grid container direction="row" spacing={2}>
+            <Grid item xs={12} sm={12} md={16} lg={16}>
+              <CustomTabPanel value={value} index={0} centered>
+                <Grid
+                  container
+                  direction="row"
+                  spacing={2}
+                  justifyContent="center"
+                  justifyItems="center"
+                >
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Table
+                      title="Before Filtering"
+                      section="before_filtering"
+                      summaryData={summaryData.before_filtering}
+                      headersKey=""
+                      headersValue=""
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Table
+                      title="After Filtering"
+                      section="after_filtering"
+                      summaryData={summaryData.after_filtering}
+                      headersKey=""
+                      headersValue=""
+                    />
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  direction="row"
+                  spacing={2}
+                  justifyContent="center"
+                  justifyItems="center"
+                >
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Table
+                      title="Filtering Results"
+                      section="after_filtering"
+                      summaryData={jsonData.filtering_result}
+                      headersKey=""
+                      headersValue=""
+                    />
+                  </Grid>
+                </Grid>
+              </CustomTabPanel>
+              <CustomTabPanel value={value} index={1}>
+                <Grid
+                  container
+                  direction="row"
+                  spacing={2}
+                  justifyContent="center"
+                  justifyItems="center"
+                >
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Table
+                      title="Adapter or bad ligation of read1"
+                      section="adapter_read1"
+                      summaryData={adapterData.read1_adapter_counts}
+                      headersKey="Sequence"
+                      headersValue="Occurrences"
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Table
+                      title="Adapter or bad ligation of read2"
+                      section="adapter_read2"
+                      summaryData={adapterData.read2_adapter_counts}
+                      headersKey="Sequence"
+                      headersValue="Occurrences"
+                    />
+                  </Grid>
+                </Grid>
+              </CustomTabPanel>
+              <CustomTabPanel value={value} index={2}>
+                <Grid
+                  container
+                  direction="row"
+                  spacing={2}
+                  justifyContent="center"
+                  justifyItems="center"
+                >
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Box
+                      sx={{
+                        width: "100%",
+                      }}
+                    >
+                      <Box sx={{ p: 2, textAlign: "center" }}>
+                        <h2>Duplication</h2>
+                      </Box>
+                      <BarChart
+                        series={[{ data: duplicationDataHistogram }]}
+                        height={390}
+                        xAxis={[
+                          {
+                            data: duplicationDataHistogramXaxis,
+                            scaleType: "band",
+                          },
+                        ]}
+                        /* margin={{ top: 10, bottom: 30, left: 40, right: 10 }} */
+                      />
+                    </Box>
+                  </Grid>
+                </Grid>
+              </CustomTabPanel>
+              <CustomTabPanel value={value} index={3}>
+                <Grid
+                  container
+                  direction="row"
+                  spacing={2}
+                  justifyContent="center"
+                  justifyItems="center"
+                >
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={12}
+                    lg={12}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Box
+                      sx={{
+                        width: "100%",
+                      }}
+                    >
+                      <Box sx={{ p: 2, textAlign: "center" }}>
+                        <h2>Insert size distribution</h2>
+                      </Box>
+                      <BarChart
+                        series={[{ data: inserSizeDataHistogram }]}
+                        height={390}
+                        xAxis={[
+                          {
+                            data: inserSizeDataHistogramXaxis,
+                            scaleType: "band",
+                          },
+                        ]}
+                        /* margin={{ top: 10, bottom: 30, left: 40, right: 10 }} */
+                      />
+                    </Box>
+                  </Grid>
+                </Grid>
+              </CustomTabPanel>
+              <CustomTabPanel value={value} index={4}>
+                <Grid
+                  container
+                  direction="row"
+                  spacing={2}
+                  justifyContent="center"
+                  justifyItems="center"
+                >
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={12}
+                    lg={12}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Box sx={{ p: 2, textAlign: "center" }}>
+                      <h2>Before filtering</h2>
+                    </Box>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={12}
+                    lg={12}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Box sx={{ textAlign: "center" }}>
+                      <h4>Quality Curves</h4>
+                    </Box>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Box sx={{ p: 2, textAlign: "center" }}>
+                      <h4>Read 1</h4>
+                    </Box>
+                    <Chart typeFiltering="ReadUnBeforeFiltering" />
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Box sx={{ p: 2, textAlign: "center" }}>
+                      <h4>Read 2</h4>
+                    </Box>
+                    <Chart typeFiltering="ReadTwoBeforeFiltering" />
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={12}
+                    lg={12}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Box sx={{ textAlign: "center" }}>
+                      <h4>Base Contents</h4>
+                    </Box>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    {isMobile && (
+                      <Box sx={{ p: 2, textAlign: "center" }}>
+                        <h4>Read 1</h4>
+                      </Box>
+                    )}
+                    <CharContent typeFiltering="ReadUnBeforeFiltering" />
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    {isMobile && (
+                      <Box sx={{ p: 2, textAlign: "center" }}>
+                        <h4>Read 2</h4>
+                      </Box>
+                    )}
+                    <CharContent typeFiltering="ReadTwoBeforeFiltering" />
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={12}
+                    lg={12}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        justifyContent: "space-around",
+                      }}
+                    >
+                      <h4>Kmer Counting</h4>
+                    </Box>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        justifyContent: "space-around",
+                      }}
+                    >
+                      {isMobile && <h4>Read 1</h4>}
+                      <Heatmap />
+                    </Box>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        justifyContent: "space-around",
+                      }}
+                    >
+                      {isMobile && <h4>Read 2</h4>}
+                      <Heatmap />
+                    </Box>
+                  </Grid>
+                </Grid>
+              </CustomTabPanel>
+              <CustomTabPanel value={value} index={5}>
+                <Grid
+                  container
+                  direction="row"
+                  spacing={2}
+                  justifyContent="center"
+                  justifyItems="center"
+                >
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={12}
+                    lg={12}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Box sx={{ p: 2, textAlign: "center" }}>
+                      <h2>After filtering</h2>
+                    </Box>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={12}
+                    lg={12}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Box sx={{ textAlign: "center" }}>
+                      <h4>Quality Curves</h4>
+                    </Box>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Box sx={{ p: 2, textAlign: "center" }}>
+                      <h4>Read 1</h4>
+                    </Box>
+                    <Chart typeFiltering="ReadUnAfterFiltering" />
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Box sx={{ p: 2, textAlign: "center" }}>
+                      <h4>Read 2</h4>
+                    </Box>
+                    <Chart typeFiltering="ReadTwoAfterFiltering" />
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={12}
+                    lg={12}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Box sx={{ textAlign: "center" }}>
+                      <h4>Base Contents</h4>
+                    </Box>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    {isMobile && (
+                      <Box sx={{ p: 2, textAlign: "center" }}>
+                        <h4>Read 1</h4>
+                      </Box>
+                    )}
+                    <CharContent typeFiltering="ReadUnAfterFiltering" />
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    {isMobile && (
+                      <Box sx={{ p: 2, textAlign: "center" }}>
+                        <h4>Read 2</h4>
+                      </Box>
+                    )}
+                    <CharContent typeFiltering="ReadTwoAfterFiltering" />
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={12}
+                    lg={12}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        justifyContent: "space-around",
+                      }}
+                    >
+                      <h4>Kmer Counting</h4>
+                    </Box>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        justifyContent: "space-around",
+                      }}
+                    >
+                      {isMobile && <h4>Read 1</h4>}
+                      <Heatmap />
+                    </Box>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={6}
+                    justifyContent="center"
+                    justifyItems="center"
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        justifyContent: "space-around",
+                      }}
+                    >
+                      {isMobile && <h4>Read 2</h4>}
+                      <Heatmap />
+                    </Box>
+                  </Grid>
+                </Grid>
+              </CustomTabPanel>
+            </Grid>
+          </Grid>
+        </Grid>
       </Box>
     </Box>
   );

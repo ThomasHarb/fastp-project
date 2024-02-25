@@ -1,17 +1,15 @@
 import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
-import { useTheme } from "@mui/material/styles";
 import { v4 as uuidv4 } from "uuid";
 
 function Table({ title, summaryData, headersKey, headersValue }) {
-  const theme = useTheme();
   const columns = [
-    { field: "key", headerName: headersKey, width: 600 },
+    { field: "key", headerName: headersKey, minWidth: 200, width: 400 },
     {
       field: "value",
       headerName: headersValue,
-      width: 300,
+      minWidth: 75,
       editable: false,
     },
   ];
@@ -29,14 +27,11 @@ function Table({ title, summaryData, headersKey, headersValue }) {
         "&::after": {
           position: "absolute",
           content: '""',
-          width: "30%",
+          width: "100%",
           zIndex: 1,
           top: 0,
           right: 0,
           height: "100%",
-          backgroundSize: "18px 18px",
-          backgroundImage: `radial-gradient(${theme.palette.primary.dark} 20%, transparent 20%)`,
-          opacity: 0.2,
         },
       }}
     >
