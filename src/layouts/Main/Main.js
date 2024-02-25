@@ -44,14 +44,31 @@ const Main = ({
   return (
     <div>
       <HideOnScroll>
-        <Topbar
-          onSidebarOpen={handleSidebarOpen}
-          themeMode={themeMode}
-          themeToggler={themeToggler}
-          setThemePalette={setThemePalette}
-          paletteType={paletteType}
-        />
+        <AppBar
+          position={"fixed"}
+          sx={{
+            backgroundColor: theme.palette.background.paper,
+            boxShadow: "none",
+          }}
+          elevation={0}
+        >
+          <Topbar
+            onSidebarOpen={handleSidebarOpen}
+            themeMode={themeMode}
+            themeToggler={themeToggler}
+            setThemePalette={setThemePalette}
+            paletteType={paletteType}
+            sx={{
+              backgroundColor: theme.palette.background.paper,
+            }}
+          />
+        </AppBar>
       </HideOnScroll>
+      <Sidebar
+        onClose={handleSidebarClose}
+        open={openSidebar}
+        variant="temporary"
+      />
       <main>
         <Box height={{ xs: 56, sm: 64 }} />
         {children}
