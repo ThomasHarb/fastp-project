@@ -121,6 +121,16 @@ function ResponsiveAppBar() {
                   Fastp Dashboard Project
                 </Link>
               </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Link
+                  underline="none"
+                  component="a"
+                  href="https://thomasharb.github.io/contact/"
+                  color="textSecondary"
+                >
+                  Contact
+                </Link>
+              </MenuItem>
             </Menu>
           </Box>
           <InsightsIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -173,7 +183,10 @@ function ResponsiveAppBar() {
               Fastp Dashboard Project
             </Link>
           </Box>
-          <Box sx={{ flexGrow: 0 }} marginRight={4}>
+          <Box
+            sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
+            marginRight={4}
+          >
             <Button
               variant="contained"
               color="primary"
@@ -241,6 +254,16 @@ function ResponsiveAppBar() {
                   color="textSecondary"
                 >
                   Fastp Dashboard Project
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Link
+                  underline="none"
+                  component="a"
+                  href="https://thomasharb.github.io/contact/"
+                  color="textSecondary"
+                >
+                  Contact
                 </Link>
               </MenuItem>
             </Menu>
