@@ -126,10 +126,12 @@ function Hero() {
               >
                 <Tab label="Overview" {...a11yProps(0)} />
                 <Tab label="Adapters" {...a11yProps(1)} />
-                <Tab label="Duplication" {...a11yProps(2)} />
-                <Tab label="Insert size distribution" {...a11yProps(3)} />
-                <Tab label="Before filtering" {...a11yProps(4)} />
-                <Tab label="After filtering" {...a11yProps(5)} />
+                <Tab
+                  label="Duplication & Insert size distribution"
+                  {...a11yProps(2)}
+                />
+                <Tab label="Before filtering" {...a11yProps(3)} />
+                <Tab label="After filtering" {...a11yProps(4)} />
               </Tabs>
             </AppBar>
           </Grid>
@@ -286,22 +288,12 @@ function Hero() {
                       />
                     </Box>
                   </Grid>
-                </Grid>
-              </CustomTabPanel>
-              <CustomTabPanel value={value} index={3}>
-                <Grid
-                  container
-                  direction="row"
-                  spacing={2}
-                  justifyContent="center"
-                  justifyItems="center"
-                >
                   <Grid
                     item
                     xs={12}
                     sm={12}
-                    md={12}
-                    lg={12}
+                    md={6}
+                    lg={6}
                     justifyContent="center"
                     justifyItems="center"
                   >
@@ -328,7 +320,7 @@ function Hero() {
                   </Grid>
                 </Grid>
               </CustomTabPanel>
-              <CustomTabPanel value={value} index={4}>
+              <CustomTabPanel value={value} index={3}>
                 <Grid
                   container
                   direction="row"
@@ -496,7 +488,7 @@ function Hero() {
                   </Grid>
                 </Grid>
               </CustomTabPanel>
-              <CustomTabPanel value={value} index={5}>
+              <CustomTabPanel value={value} index={4}>
                 <Grid
                   container
                   direction="row"
