@@ -115,25 +115,51 @@ function Hero() {
           </Typography>
         </Box>
         <Grid container direction="row" spacing={2}>
-          <Grid item xs={12} sm={12} md={16} lg={16}>
-            <AppBar position="flex" style={{ position: "flex" }} centered>
-              <Tabs
-                value={value}
-                onChange={handleChange}
-                centered
-                color="primary"
-                variant="fullWidth"
-              >
-                <Tab label="Overview" {...a11yProps(0)} />
-                <Tab label="Adapters" {...a11yProps(1)} />
-                <Tab
-                  label="Duplication & Insert size distribution"
-                  {...a11yProps(2)}
-                />
-                <Tab label="Before filtering" {...a11yProps(3)} />
-                <Tab label="After filtering" {...a11yProps(4)} />
-              </Tabs>
-            </AppBar>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={12}
+            lg={12}
+            alignItems={"center"}
+            sx={{ flexGrow: 0 }}
+          >
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              centered
+              color="primary"
+              variant="scrollable"
+              scrollButtons
+              allowScrollButtonsMobile
+              sx={{ display: { xs: "flex", md: "none" } }}
+            >
+              <Tab label="Overview" {...a11yProps(0)} />
+              <Tab label="Adapters" {...a11yProps(1)} />
+              <Tab
+                label="Duplication & Insert size distribution"
+                {...a11yProps(2)}
+              />
+              <Tab label="Before filtering" {...a11yProps(3)} />
+              <Tab label="After filtering" {...a11yProps(4)} />
+            </Tabs>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              centered
+              color="primary"
+              variant="fullWidth"
+              sx={{ display: { xs: "none", md: "flex" } }}
+            >
+              <Tab label="Overview" {...a11yProps(0)} />
+              <Tab label="Adapters" {...a11yProps(1)} />
+              <Tab
+                label="Duplication & Insert size distribution"
+                {...a11yProps(2)}
+              />
+              <Tab label="Before filtering" {...a11yProps(3)} />
+              <Tab label="After filtering" {...a11yProps(4)} />
+            </Tabs>
           </Grid>
           <Grid container direction="row" spacing={2}>
             <Grid item xs={12} sm={12} md={16} lg={16}>

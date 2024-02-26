@@ -4,12 +4,19 @@ import Box from "@mui/material/Box";
 import { v4 as uuidv4 } from "uuid";
 
 function Table({ title, summaryData, headersKey, headersValue }) {
-  const columns = [
-    { field: "key", headerName: headersKey, minWidth: 200, width: 400 },
+  const columnsPhone = [
+    { field: "key", headerName: headersKey, minWidth: 300 },
     {
       field: "value",
       headerName: headersValue,
-      minWidth: 75,
+      editable: false,
+    },
+  ];
+  const columns = [
+    { field: "key", headerName: headersKey, minWidth: 400 },
+    {
+      field: "value",
+      headerName: headersValue,
       editable: false,
     },
   ];
@@ -44,6 +51,15 @@ function Table({ title, summaryData, headersKey, headersValue }) {
         columns={columns}
         pageSize={5}
         headerHeight={0}
+        sx={{ display: { xs: "none", md: "flex" } }}
+      />
+      <DataGrid
+        getRowId={(row) => row.id}
+        rows={rows}
+        columns={columnsPhone}
+        pageSize={5}
+        headerHeight={0}
+        sx={{ display: { xs: "flex", md: "none" } }}
       />
     </Box>
   );
