@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 
 function Table({ title, summaryData, headersKey, headersValue }) {
   const columnsPhone = [
-    { field: "key", headerName: headersKey, minWidth: 300 },
+    { field: "key", headerName: headersKey, minWidth: 200 },
     {
       field: "value",
       headerName: headersValue,
